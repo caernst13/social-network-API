@@ -45,8 +45,22 @@ module.exports = {
         .then((thought) =>
             !thought
             ? res.status(404).json({ message: 'No thought with that ID' })
-            : Student.deleteMany({ _id: { $in: thought.thoughts } })
+            : Thought.deleteMany({ _id: { $in: thought.thoughts } })
         ).then(() => res.json({ message: 'thought and thoughts!' }))
         .catch((err) => res.status(500).json(err));
     },
+
+    addReaction(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reaction: req.body } },
+            { runValidators: true, new: true }
+        ).then((thought) =>
+            !thought
+            ? res.status(404).json({ message: 'No thought found with that ID :(' })
+            : res.json(thought)
+        ).catch((err) => res.status(500).json(err));
+    },
+
+    
 }
