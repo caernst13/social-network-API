@@ -29,11 +29,13 @@ const userSchema = new Schema(
                 ref: 'User'
             }
         ],     
+    },
+    {
         toJSON: {
-              virtuals: true,
-        },  
-        id: false, 
-    }
+          virtuals: true,
+        },
+        id: false,
+      }
 );
 
 userSchema.virtual('friendCount').get(function () {

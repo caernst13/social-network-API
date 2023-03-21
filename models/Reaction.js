@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongooe');
+const { Schema } = require('mongoose');
 const moment = require('moment')
 
 const reactionSchema = new Schema(
@@ -22,6 +22,8 @@ const reactionSchema = new Schema(
             default: Date.now(),
             get: createdAtVal => moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
         },
+    },
+    {
         toJSON: {
             getters: true
         },
